@@ -22,7 +22,9 @@
     "types": "tsc"
   },
   "dependencies": {
-    "rwsdk": "0.1.17"
+    "@tailwindcss/vite": "^4.1.11",
+    "rwsdk": "0.1.17",
+    "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.7.4",
