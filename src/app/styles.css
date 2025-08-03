@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 html {
   font-family: monospace;
   font-size: 15px;
@@ -11,15 +13,6 @@ html {
 .button {
   @apply inline-block py-2 px-3 mb-4 font-semibold rounded-md  border-2 border-current no-underline;
 }
-
-/* .curved-nav {
-  position: relative;
-  background: linear-gradient(90deg, #fcf9f5 0%, #e3dacb 100%);
-  border-radius: 0 0 100vw 100vw / 0 0 10vw 10vw;
-  padding: 2rem 0 3rem 0;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-  overflow: hidden;
-} */
 
 .prose {
   line-height: 1.4;
@@ -144,5 +137,6 @@ html {
 
 @theme {
   --color-off-white: #fcf9f5;
-  --color-light-beige: #f5e9d8;
+  --color-light-beige: #f0dec4;
+  --color-dark-brown: #6a5e54;
 }

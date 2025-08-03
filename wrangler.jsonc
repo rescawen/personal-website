@@ -3,7 +3,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
 
   // Name of your worker
-  "name": "__change_me__",
+  "name": "wenlei-website",
 
   // Entry point for your worker
   "main": "src/worker.tsx",
@@ -22,8 +22,25 @@
     "enabled": true
   },
 
+  // Durable Objects
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "SESSION_DURABLE_OBJECT",
+        "class_name": "SessionDurableObject"
+      }
+    ]
+  },
+
   // Environment variables
   "vars": {
-    // Add your environment variables here
-  }
+    "WEBAUTHN_APP_NAME": "__change_me__"
+  },
+
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["SessionDurableObject"]
+    }
+  ]
 }
