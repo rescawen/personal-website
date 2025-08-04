@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import ThemeSwitcher from "../template/ThemeSwitcher";
 
 const NAV_LINKS = [
   { href: "/", label: "About Me" },
@@ -33,9 +32,6 @@ export default function NavigationBar() {
 
   return (
     <>
-      <div className="flex justify-end p-4 mr-80">
-        <ThemeSwitcher />
-      </div>
       <nav className="mt-16 flex flex-col items-center w-full">
         {/* Desktop nav */}
         <ul className="hidden md:flex justify-center items-center space-x-16">

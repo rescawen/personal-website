@@ -43,7 +43,23 @@ export default defineApp([
 
       throw error;
     }
-    const lng = session?.language || "en";
+
+    // Check if URL contains language parameter
+    const url = new URL(request.url);
+    const pathSegments = url.pathname.split("/").filter(Boolean);
+    const urlLang = pathSegments[0];
+    const allowedLangs = ["en", "fi"];
+
+    // Determine language priority: URL param > session > default
+    let lng = session?.language || "en";
+    if (urlLang && allowedLangs.includes(urlLang)) {
+      lng = urlLang;
+      // Update session if URL language differs from stored language
+      if (session?.language !== urlLang) {
+        await sessions.save(headers, { language: urlLang });
+      }
+    }
+
     const resources = { en, fi };
 
     const i18n = i18next.createInstance();
@@ -56,5 +72,27 @@ export default defineApp([
     ctx.i18n = i18n;
     ctx.translate = i18n.t.bind(i18n);
   },
-  render(Document, [route("/", Home)]),
+  async ({ ctx, request, headers }) => {
+    // Handle root path redirect to default language
+    const url = new URL(request.url);
+    if (url.pathname === "/") {
+      return new Response(null, {
+        status: 302,
+        headers: { Location: "/en" },
+      });
+    }
+
+    // Handle invalid language redirects
+    const pathSegments = url.pathname.split("/").filter(Boolean);
+    const urlLang = pathSegments[0];
+    const allowedLangs = ["en", "fi"];
+
+    if (pathSegments.length > 0 && !allowedLangs.includes(urlLang)) {
+      return new Response(null, {
+        status: 302,
+        headers: { Location: "/en" },
+      });
+    }
+  },
+  render(Document, [route("/:lang", Home)]),
 ]);
