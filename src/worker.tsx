@@ -90,6 +90,8 @@ export default defineApp([
       throw error;
     }
 
+    console.log("Session language:", session?.language);
+
     // Parse URL
     const url = new URL(request.url);
     const { urlLang, pathSegments, allowedLangs } = parseUrlLanguage(url);
@@ -97,6 +99,8 @@ export default defineApp([
     // Handle root redirect to preferred language
     if (shouldRedirectRoot(url.pathname)) {
       const preferredLang = session?.language || "en";
+      console.log("DEBUG: Root redirect - session:", session);
+      console.log("DEBUG: Preferred language:", preferredLang);
       return new Response(null, {
         status: 302,
         headers: { Location: `/${preferredLang}` },
@@ -115,11 +119,23 @@ export default defineApp([
     const lng = determineLanguage(urlLang, allowedLangs, session);
 
     // Update session if URL language differs from stored language
+    // Only for HTML page requests, not assets
+    const isPageRequest = request.headers.get("accept")?.includes("text/html");
     if (
       urlLang &&
       allowedLangs.includes(urlLang) &&
-      session?.language !== urlLang
+      session?.language !== urlLang &&
+      isPageRequest
     ) {
+      console.log(
+        "DEBUG: Saving session - old:",
+        session?.language,
+        "new:",
+        urlLang,
+      );
+      console.log("DEBUG: URL causing session save:", request.url);
+      console.log("DEBUG: Full pathname:", url.pathname);
+      console.log("DEBUG: Is page request:", isPageRequest);
       await sessions.save(headers, { language: urlLang });
     }
 
