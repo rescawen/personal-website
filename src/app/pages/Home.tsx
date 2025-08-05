@@ -1,5 +1,5 @@
 import { RequestInfo } from "rwsdk/worker";
-import NavigationBar from "../template/NavigationBar";
+import NavigationBarWrapper from "../template/NavigationBarWrapper";
 import ThemeSwitcher from "../template/ThemeSwitcher";
 import LanguageSwitcher from "../template/LanguageSwitcher";
 
@@ -18,8 +18,7 @@ export function Home({ ctx, params }: RequestInfo) {
         <LanguageSwitcher currentLang={currentLang} />
         <ThemeSwitcher />
       </div>
-      <NavigationBar />
-      <p>{ctx.translate("about_me")}</p>
+      <NavigationBarWrapper />
     </div>
   );
 }

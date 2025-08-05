@@ -2,28 +2,32 @@
 
 import { useState, useEffect } from "react";
 
-const NAV_LINKS = [
-  { href: "/", label: "About Me" },
-  { href: "/showcase", label: "Showcase" },
-  { href: "/projects", label: "Projects" },
-  { href: "/esports", label: "Esports" },
-];
-
-function getCurrentLabel() {
-  if (typeof window === "undefined") return "About Me";
-  const path = window.location.pathname;
-  const found = NAV_LINKS.find((l) => l.href === path);
-  return found ? found.label : "About Me";
+interface NavLink {
+  href: string;
+  label: string;
 }
 
-export default function NavigationBar() {
+interface NavigationBarProps {
+  navLinks: NavLink[];
+}
+
+function getCurrentLabel(navLinks: NavLink[]) {
+  if (typeof window === "undefined") return navLinks[0]?.label || "About Me";
+  const path = window.location.pathname;
+  const found = navLinks.find((l) => l.href === path);
+  return found ? found.label : navLinks[0]?.label || "About Me";
+}
+
+export default function NavigationBar({ navLinks }: NavigationBarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [currentLabel, setCurrentLabel] = useState("About Me");
+  const [currentLabel, setCurrentLabel] = useState(
+    navLinks[0]?.label || "About Me"
+  );
 
   // Update current label on mount and on popstate
   useEffect(() => {
     function updateLabel() {
-      setCurrentLabel(getCurrentLabel());
+      setCurrentLabel(getCurrentLabel(navLinks));
     }
     updateLabel();
     window.addEventListener("popstate", updateLabel);
@@ -35,7 +39,7 @@ export default function NavigationBar() {
       <nav className="mt-16 flex flex-col items-center w-full">
         {/* Desktop nav */}
         <ul className="hidden md:flex justify-center items-center space-x-16">
-          {NAV_LINKS.map((link) => (
+          {navLinks.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
@@ -91,7 +95,7 @@ export default function NavigationBar() {
             {/* Mobile dropdown menu */}
             {menuOpen && (
               <ul className="absolute top-12 left-1/2 -translate-x-1/2 bg-white dark:bg-black shadow-lg rounded-lg py-2 z-50 w-48 border border-gray-200 dark:border-gray-700">
-                {NAV_LINKS.map((link) => (
+                {navLinks.map((link) => (
                   <li key={link.href}>
                     <a
                       href={link.href}
