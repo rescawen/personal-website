@@ -21,78 +21,112 @@ export type AppContext = {
   translate: i18nType["t"];
 };
 
+// Helper functions
+async function loadSession(request: Request) {
+  setupSessionStore(env);
+  return await sessions.load(request);
+}
+
+function parseUrlLanguage(url: URL) {
+  const pathSegments = url.pathname.split("/").filter(Boolean);
+  const urlLang = pathSegments[0];
+  const allowedLangs = ["en", "fi"];
+  return { urlLang, pathSegments, allowedLangs };
+}
+
+function shouldRedirectRoot(pathname: string) {
+  return pathname === "/";
+}
+
+function shouldRedirectInvalidLanguage(
+  pathSegments: string[],
+  allowedLangs: string[],
+) {
+  const urlLang = pathSegments[0];
+  return pathSegments.length > 0 && !allowedLangs.includes(urlLang);
+}
+
+function determineLanguage(
+  urlLang: string | undefined,
+  allowedLangs: string[],
+  session: any,
+) {
+  if (urlLang && allowedLangs.includes(urlLang)) {
+    return urlLang;
+  }
+  return session?.language || "en";
+}
+
+async function setupI18n(language: string) {
+  const resources = { en, fi };
+  const i18n = i18next.createInstance();
+  await i18n.init({
+    lng: language,
+    fallbackLng: "en",
+    resources,
+    interpolation: { escapeValue: false },
+  });
+  return i18n;
+}
+
 export default defineApp([
   setCommonHeaders(),
   async ({ ctx, request, headers }) => {
-    setupSessionStore(env);
+    // Load session
+    const session = await loadSession(request);
 
-    const session = await sessions.load(request);
-
+    // Handle session errors
     try {
       session;
     } catch (error) {
       if (error instanceof ErrorResponse && error.code === 401) {
         await sessions.remove(request, headers);
         headers.set("Location", "/");
-
         return new Response(null, {
           status: 302,
           headers,
         });
       }
-
       throw error;
     }
 
-    // Check if URL contains language parameter
+    // Parse URL
     const url = new URL(request.url);
-    const pathSegments = url.pathname.split("/").filter(Boolean);
-    const urlLang = pathSegments[0];
-    const allowedLangs = ["en", "fi"];
+    const { urlLang, pathSegments, allowedLangs } = parseUrlLanguage(url);
 
-    // Determine language priority: URL param > session > default
-    let lng = session?.language || "en";
-    if (urlLang && allowedLangs.includes(urlLang)) {
-      lng = urlLang;
-      // Update session if URL language differs from stored language
-      if (session?.language !== urlLang) {
-        await sessions.save(headers, { language: urlLang });
-      }
-    }
-
-    const resources = { en, fi };
-
-    const i18n = i18next.createInstance();
-    await i18n.init({
-      lng,
-      fallbackLng: "en",
-      resources,
-      interpolation: { escapeValue: false },
-    });
-    ctx.i18n = i18n;
-    ctx.translate = i18n.t.bind(i18n);
-  },
-  async ({ ctx, request, headers }) => {
-    // Handle root path redirect to default language
-    const url = new URL(request.url);
-    if (url.pathname === "/") {
+    // Handle root redirect to preferred language
+    if (shouldRedirectRoot(url.pathname)) {
+      const preferredLang = session?.language || "en";
       return new Response(null, {
         status: 302,
-        headers: { Location: "/en" },
+        headers: { Location: `/${preferredLang}` },
       });
     }
 
     // Handle invalid language redirects
-    const pathSegments = url.pathname.split("/").filter(Boolean);
-    const urlLang = pathSegments[0];
-    const allowedLangs = ["en", "fi"];
-
-    if (pathSegments.length > 0 && !allowedLangs.includes(urlLang)) {
+    if (shouldRedirectInvalidLanguage(pathSegments, allowedLangs)) {
       return new Response(null, {
         status: 302,
         headers: { Location: "/en" },
       });
     }
+
+    // Determine final language
+    const lng = determineLanguage(urlLang, allowedLangs, session);
+
+    // Update session if URL language differs from stored language
+    if (
+      urlLang &&
+      allowedLangs.includes(urlLang) &&
+      session?.language !== urlLang
+    ) {
+      await sessions.save(headers, { language: urlLang });
+    }
+
+    // Setup i18n
+    const i18n = await setupI18n(lng);
+    ctx.i18n = i18n;
+    ctx.translate = i18n.t.bind(i18n);
   },
   render(Document, [route("/:lang", Home)]),
 ]);
