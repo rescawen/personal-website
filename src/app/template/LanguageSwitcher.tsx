@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useRef } from "react";
 import { changeLanguage } from "./functions";
 
 interface LanguageSwitcherProps {
@@ -8,7 +8,8 @@ interface LanguageSwitcherProps {
 }
 
 export default function LanguageSwitcher(currentLang: LanguageSwitcherProps) {
-  const [lang, setLang] = useState(currentLang.currentLang); // Always starts as "en"
+  const [lang, setLang] = useState(currentLang.currentLang);
+  const hiddenLinkRef = useRef<HTMLAnchorElement>(null);
 
   const handleChange = async (e: ChangeEvent<HTMLSelectElement>) => {
     const newLang = e.target.value;
@@ -22,14 +23,21 @@ export default function LanguageSwitcher(currentLang: LanguageSwitcherProps) {
     // Update the session on server
     await changeLanguage(newLang);
 
-    // Navigate to new URL
-    window.location.href = newPath;
+    // Use hidden link for client-side navigation
+    if (hiddenLinkRef.current) {
+      hiddenLinkRef.current.href = newPath;
+      hiddenLinkRef.current.click();
+    }
   };
 
   return (
-    <select value={lang} onChange={handleChange} className="rounded p-1">
-      <option value="en">English</option>
-      <option value="fi">Suomi</option>
-    </select>
+    <>
+      <select value={lang} onChange={handleChange} className="rounded p-1">
+        <option value="en">English</option>
+        <option value="fi">Suomi</option>
+      </select>
+      {/* Hidden link for rwsdk client-side navigation */}
+      <a ref={hiddenLinkRef} href="#" style={{ display: "none" }} />
+    </>
   );
 }
