@@ -15,8 +15,8 @@ importers:
         specifier: ^15.6.1
         version: 15.6.1(i18next@25.3.2(typescript@5.8.3))(react-dom@19.2.0-canary-39cad7af-20250411(react@19.2.0-canary-39cad7af-20250411))(react@19.2.0-canary-39cad7af-20250411)(typescript@5.8.3)
       rwsdk:
-        specifier: 0.1.31
-        version: 0.1.31(rollup@4.45.1)(typescript@5.8.3)(vite@6.3.5(@types/node@22.16.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1))(webpack@5.100.2)(workerd@1.20250709.0)
+        specifier: 0.1.32
+        version: 0.1.32(rollup@4.45.1)(typescript@5.8.3)(vite@6.3.5(@types/node@22.16.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1))(webpack@5.100.2)(workerd@1.20250709.0)
     devDependencies:
       '@cloudflare/vite-plugin':
         specifier: 1.7.4
@@ -2035,8 +2035,8 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  rwsdk@0.1.31:
-    resolution: {integrity: sha512-L6PLEsepeKU0jkyhXhmfiAipfy2/p6eBcVH7gggtjw0iftLJOiIQb73WWGbet6d9E0hu7A+bHe0ZW2O21ePtew==}
+  rwsdk@0.1.32:
+    resolution: {integrity: sha512-YQxDuNoRrMQWFGmmY4vxyzKEb01LIfnAuDAbaga7BSJlrdaToGNHMybXq7qSFIX+VSJu+CTm2pZwN/rA9XUQCQ==}
     hasBin: true
     peerDependencies:
       vite: ^6.2.6
@@ -4230,7 +4230,7 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  rwsdk@0.1.31(rollup@4.45.1)(typescript@5.8.3)(vite@6.3.5(@types/node@22.16.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1))(webpack@5.100.2)(workerd@1.20250709.0):
+  rwsdk@0.1.32(rollup@4.45.1)(typescript@5.8.3)(vite@6.3.5(@types/node@22.16.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1))(webpack@5.100.2)(workerd@1.20250709.0):
     dependencies:
       '@ast-grep/napi': 0.38.7
       '@cloudflare/vite-plugin': 1.7.4(rollup@4.45.1)(vite@6.3.5(@types/node@22.16.4)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.43.1))(workerd@1.20250709.0)(wrangler@4.24.3(@cloudflare/workers-types@4.20250715.0))
