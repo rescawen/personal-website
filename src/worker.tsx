@@ -57,16 +57,22 @@ function determineLanguage(
   return session?.language || "en";
 }
 
+// Cache for i18n instances by language
+const i18nCache: Record<string, i18nType> = {};
+
 async function setupI18n(language: string) {
-  const resources = { en, fi };
-  const i18n = i18next.createInstance();
-  await i18n.init({
-    lng: language,
-    fallbackLng: "en",
-    resources,
-    interpolation: { escapeValue: false },
-  });
-  return i18n;
+  if (!i18nCache[language]) {
+    const resources = { en, fi };
+    const i18n = i18next.createInstance();
+    await i18n.init({
+      lng: language,
+      fallbackLng: "en",
+      resources,
+      interpolation: { escapeValue: false },
+    });
+    i18nCache[language] = i18n;
+  }
+  return i18nCache[language];
 }
 
 export default defineApp([
@@ -139,7 +145,7 @@ export default defineApp([
       await sessions.save(headers, { language: urlLang });
     }
 
-    // Setup i18n
+    // Setup i18n - lazy initialization and cached per language
     const i18n = await setupI18n(lng);
     ctx.i18n = i18n;
     ctx.translate = i18n.t.bind(i18n);
