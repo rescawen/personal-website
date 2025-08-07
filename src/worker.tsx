@@ -43,7 +43,7 @@ function shouldRedirectRoot(pathname: string) {
 
 function shouldRedirectInvalidLanguage(
   pathSegments: string[],
-  allowedLangs: string[],
+  allowedLangs: string[]
 ) {
   const urlLang = pathSegments[0];
   return pathSegments.length > 0 && !allowedLangs.includes(urlLang);
@@ -52,7 +52,7 @@ function shouldRedirectInvalidLanguage(
 function determineLanguage(
   urlLang: string | undefined,
   allowedLangs: string[],
-  session: any,
+  session: any
 ) {
   if (urlLang && allowedLangs.includes(urlLang)) {
     return urlLang;
@@ -65,6 +65,7 @@ const i18nCache: Record<string, i18nType> = {};
 
 async function setupI18n(language: string) {
   if (!i18nCache[language]) {
+    console.log(`DEBUG: Creating new i18n instance for "${language}"`);
     const resources = { en, fi };
     const i18n = i18next.createInstance();
     await i18n.init({
@@ -74,6 +75,8 @@ async function setupI18n(language: string) {
       interpolation: { escapeValue: false },
     });
     i18nCache[language] = i18n;
+  } else {
+    console.log(`DEBUG: Using cached i18n instance for "${language}"`);
   }
   return i18nCache[language];
 }
@@ -140,7 +143,7 @@ export default defineApp([
         "DEBUG: Saving session - old:",
         session?.language,
         "new:",
-        urlLang,
+        urlLang
       );
       console.log("DEBUG: URL causing session save:", request.url);
       console.log("DEBUG: Full pathname:", url.pathname);
