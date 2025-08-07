@@ -3,6 +3,9 @@ import { render, route } from "rwsdk/router";
 
 import { Document } from "@/app/Document";
 import { Home } from "@/app/pages/Home";
+import { Showcase } from "@/app/pages/Showcase";
+import { Projects } from "@/app/pages/Projects";
+import { Esports } from "@/app/pages/Esports";
 import { setCommonHeaders } from "@/app/headers";
 
 import { sessions, setupSessionStore } from "./session/store";
@@ -144,5 +147,10 @@ export default defineApp([
     ctx.i18n = i18n;
     ctx.translate = i18n.t.bind(i18n);
   },
-  render(Document, [route("/:lang", Home)]),
+  render(Document, [
+    route("/:lang", Home),
+    route("/:lang/showcase", Showcase),
+    route("/:lang/projects", Projects),
+    route("/:lang/esports", Esports),
+  ]),
 ]);

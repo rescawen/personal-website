@@ -14,14 +14,31 @@ interface NavigationBarProps {
 function getCurrentLabel(navLinks: NavLink[]) {
   if (typeof window === "undefined") return navLinks[0]?.label || "About Me";
   const path = window.location.pathname;
-  const found = navLinks.find((l) => l.href === path);
+  // Handle both exact matches and language-aware paths
+  const found = navLinks.find((l) => {
+    // Exact match
+    if (l.href === path) return true;
+    // Check if current path matches the pattern (e.g., /en/showcase matches /en/showcase)
+    if (path === l.href) return true;
+    // For root path, check if we're on a language root (e.g., /en should match the "about me" link)
+    const pathSegments = path.split("/").filter(Boolean);
+    const linkSegments = l.href.split("/").filter(Boolean);
+    if (
+      pathSegments.length === 1 &&
+      linkSegments.length === 1 &&
+      pathSegments[0] === linkSegments[0]
+    ) {
+      return true;
+    }
+    return false;
+  });
   return found ? found.label : navLinks[0]?.label || "About Me";
 }
 
 export default function NavigationBar({ navLinks }: NavigationBarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [currentLabel, setCurrentLabel] = useState(
-    navLinks[0]?.label || "About Me"
+    navLinks[0]?.label || "About Me",
   );
 
   // Update current label on mount and on popstate
@@ -31,8 +48,13 @@ export default function NavigationBar({ navLinks }: NavigationBarProps) {
     }
     updateLabel();
     window.addEventListener("popstate", updateLabel);
-    return () => window.removeEventListener("popstate", updateLabel);
-  }, []);
+    // Also listen for client-side navigation events
+    window.addEventListener("rwsdk:navigate", updateLabel);
+    return () => {
+      window.removeEventListener("popstate", updateLabel);
+      window.removeEventListener("rwsdk:navigate", updateLabel);
+    };
+  }, [navLinks]);
 
   return (
     <>
