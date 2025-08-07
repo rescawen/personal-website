@@ -1,24 +1,21 @@
 import { RequestInfo } from "rwsdk/worker";
-import NavigationBarWrapper from "../template/NavigationBarWrapper";
-import ThemeSwitcher from "../template/ThemeSwitcher";
-import LanguageSwitcher from "../template/LanguageSwitcher";
+import { Layout } from "../template/Layout";
 
 export function Home({ ctx, params }: RequestInfo) {
-  const { lang } = params;
-  const currentLang = lang;
-
-  // Ensure i18n is updated to match URL parameter
-  if (ctx.i18n.language !== lang) {
-    ctx.i18n.changeLanguage(lang);
-  }
-
   return (
-    <div className="bg-off-white dark:bg-dark-brown dark:text-light-beige h-screen overflow-hidden">
-      <div className="flex justify-end p-4 mr-[23rem]">
-        <LanguageSwitcher currentLang={currentLang} />
-        <ThemeSwitcher />
-      </div>
-      <NavigationBarWrapper />
-    </div>
+    <Layout ctx={ctx} params={params}>
+      <main className="mt-16">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl font-bold text-center mb-8">
+            {ctx.translate("about_me")}
+          </h1>
+          <div className="prose prose-lg mx-auto dark:prose-invert">
+            <p className="text-center text-xl mb-12">
+              Welcome to my personal website.
+            </p>
+          </div>
+        </div>
+      </main>
+    </Layout>
   );
 }
