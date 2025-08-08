@@ -103,7 +103,7 @@ export function AboutMe({ ctx, params }: RequestInfo) {
                       {ctx.translate("aboutme_starcraft_lan_wins")}
                     </span>
                     <span className="font-semibold text-orange-600 dark:text-orange-400">
-                      9
+                      8
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
