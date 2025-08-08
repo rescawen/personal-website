@@ -2,7 +2,7 @@ import { defineApp, ErrorResponse } from "rwsdk/worker";
 import { render, route } from "rwsdk/router";
 
 import { Document } from "@/app/Document";
-import { Home } from "@/app/pages/Home";
+import { AboutMe } from "@/app/pages/AboutMe";
 import { Showcase } from "@/app/pages/Showcase";
 import { Projects } from "@/app/pages/Projects";
 import { Esports } from "@/app/pages/Esports";
@@ -43,7 +43,7 @@ function shouldRedirectRoot(pathname: string) {
 
 function shouldRedirectInvalidLanguage(
   pathSegments: string[],
-  allowedLangs: string[],
+  allowedLangs: string[]
 ) {
   const urlLang = pathSegments[0];
   return pathSegments.length > 0 && !allowedLangs.includes(urlLang);
@@ -52,7 +52,7 @@ function shouldRedirectInvalidLanguage(
 function determineLanguage(
   urlLang: string | undefined,
   allowedLangs: string[],
-  session: any,
+  session: any
 ) {
   if (urlLang && allowedLangs.includes(urlLang)) {
     return urlLang;
@@ -134,7 +134,7 @@ export default defineApp([
         "DEBUG: Saving session - old:",
         session?.language,
         "new:",
-        urlLang,
+        urlLang
       );
       console.log("DEBUG: URL causing session save:", request.url);
       console.log("DEBUG: Full pathname:", url.pathname);
@@ -148,7 +148,7 @@ export default defineApp([
     ctx.translate = i18n.t.bind(i18n);
   },
   render(Document, [
-    route("/:lang", Home),
+    route("/:lang", AboutMe),
     route("/:lang/showcase", Showcase),
     route("/:lang/projects", Projects),
     route("/:lang/esports", Esports),

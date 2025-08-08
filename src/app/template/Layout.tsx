@@ -19,7 +19,7 @@ export function Layout({ ctx, params, children }: LayoutProps) {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-dark-brown text-black dark:text-light-beige">
+    <div className="min-h-screen bg-off-white dark:bg-dark-brown text-black dark:text-light-beige">
       <div className="flex justify-end p-4 mr-[23rem]">
         <LanguageSwitcher currentLang={currentLang} />
         <ThemeSwitcher />
