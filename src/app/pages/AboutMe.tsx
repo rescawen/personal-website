@@ -13,7 +13,7 @@ export function AboutMe({ ctx, params }: RequestInfo) {
           <div className="space-y-8">
             {/* Hero Section */}
             <div className="text-center mb-12">
-              <div className="flex flex-col items-center md:flex-row md:justify-center md:items-center gap-8 mb-6 ml-16">
+              <div className="flex flex-col items-center md:flex-row md:justify-center md:items-center gap-8 sm:mb-6 sm:ml-12">
                 <div className="w-32 h-32 rounded-full overflow-hidden flex-shrink-0">
                   <img
                     src="/media/zhugeliang_aboutme.png"
