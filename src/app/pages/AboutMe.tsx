@@ -13,52 +13,52 @@ export function AboutMe({ ctx, params }: RequestInfo) {
           <div className="space-y-8">
             {/* Hero Section */}
             <div className="text-center mb-12">
-              <div className="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-4xl font-bold">
-                WD
+              <div className="flex flex-col items-center md:flex-row md:justify-center md:items-center gap-8 mb-6 ml-16">
+                <div className="w-32 h-32 rounded-full overflow-hidden flex-shrink-0">
+                  <img
+                    src="/media/zhugeliang_aboutme.png"
+                    alt="Wenlei Dai"
+                    className="object-cover w-full h-full rounded-full"
+                  />
+                </div>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-light-beige md:mb-0 mb-4">
+                  Wenlei Dai
+                </h2>
               </div>
-              <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-light-beige">
-                Wenlei Dai
-              </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 mb-4">
-                Software Engineer & StarCraft II Player
+                {ctx.translate("aboutme_subtitle")}
               </p>
               <p className="text-lg text-gray-500 dark:text-gray-400">
-                Helsinki, Finland
+                {ctx.translate("aboutme_location")}
               </p>
             </div>
 
             {/* Professional Summary */}
-            <div className="bg-white dark:bg-dark-brown p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+            <div className="bg-white dark:bg-pure-brown p-6 rounded-lg border border-gray-200 dark:border-border-brown shadow-sm">
               <h3 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-light-beige">
-                Professional Summary
+                {ctx.translate("aboutme_professional_summary_title")}
               </h3>
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                Experienced software engineer with a strong background in
-                full-stack development, specializing in React, TypeScript, and
-                modern web technologies. Currently working at Vaisala as a
-                Software Engineer, with previous experience at companies like
-                Futurice and Reaktor. Also a professional StarCraft II player
-                with over $19,000 in tournament winnings and a decade of
-                competitive gaming experience. TODO rewrite
+                {ctx.translate("aboutme_professional_summary_content")}
               </p>
             </div>
 
             {/* Key Information Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white dark:bg-dark-brown p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+              <div className="bg-white dark:bg-pure-brown p-6 rounded-lg border border-gray-200 dark:border-border-brown shadow-sm">
                 <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-light-beige">
-                  Professional Experience
+                  {ctx.translate("aboutme_professional_experience")}
                 </h3>
                 <div className="space-y-3">
-                  <div className="border-l-4 border-green-500 pl-4">
+                  <div className="border-l-4 border-green-500 dark:border-green-700 pl-4">
                     <h4 className="font-semibold text-gray-900 dark:text-light-beige">
                       Metaplay
                     </h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                    <p className="text-sm text-gray-600 dark:text-gray-300 block md:inline">
                       Junior Frontend Developer (2023-2024)
                     </p>
                   </div>
-                  <div className="border-l-4  border-blue-500 pl-4">
+                  <div className="border-l-4 border-blue-400 dark:border-blue-500 pl-4">
                     <h4 className="font-semibold text-gray-900 dark:text-light-beige">
                       Aiforsite
                     </h4>
@@ -66,7 +66,7 @@ export function AboutMe({ ctx, params }: RequestInfo) {
                       Frontend Developer 2022
                     </p>
                   </div>
-                  <div className="border-l-4 border-purple-500 pl-4">
+                  <div className="border-l-4 border-purple-400 dark:border-purple-500 pl-4">
                     <h4 className="font-semibold text-gray-900 dark:text-light-beige">
                       Loihde
                     </h4>
@@ -77,30 +77,22 @@ export function AboutMe({ ctx, params }: RequestInfo) {
                 </div>
               </div>
 
-              <div className="bg-white dark:bg-dark-brown p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+              <div className="bg-white dark:bg-pure-brown p-6 rounded-lg border border-gray-200 dark:border-border-brown shadow-sm">
                 <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-light-beige">
-                  StarCraft II Career
+                  {ctx.translate("aboutme_starcraft_career")}
                 </h3>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600 dark:text-gray-300">
-                      Total Winnings
-                    </span>
-                    <span className="font-semibold text-green-600 dark:text-green-400">
-                      $19,122
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-600 dark:text-gray-300">
-                      Years Active
+                      {ctx.translate("aboutme_starcraft_years_active_title")}
                     </span>
                     <span className="font-semibold text-blue-600 dark:text-blue-400">
-                      2012-Present
+                      {ctx.translate("aboutme_starcraft_years_active_content")}
                     </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600 dark:text-gray-300">
-                      Race
+                      {ctx.translate("aboutme_starcraft_race")}
                     </span>
                     <span className="font-semibold text-purple-600 dark:text-purple-400">
                       Zerg
@@ -108,10 +100,18 @@ export function AboutMe({ ctx, params }: RequestInfo) {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600 dark:text-gray-300">
-                      Win Rate
+                      {ctx.translate("aboutme_starcraft_lan_wins")}
                     </span>
                     <span className="font-semibold text-orange-600 dark:text-orange-400">
-                      57.3%
+                      9
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600 dark:text-gray-300">
+                      {ctx.translate("aboutme_starcraft_earnings")}
+                    </span>
+                    <span className="font-semibold text-green-600 dark:text-green-500">
+                      $19,122
                     </span>
                   </div>
                 </div>
@@ -119,9 +119,9 @@ export function AboutMe({ ctx, params }: RequestInfo) {
             </div>
 
             {/* Skills Section */}
-            <div className="bg-white dark:bg-dark-brown p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+            <div className="bg-white dark:bg-pure-brown p-6 rounded-lg border border-gray-200 dark:border-border-brown shadow-sm">
               <h3 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-light-beige">
-                Technical Skills
+                {ctx.translate("aboutme_technical_skills_title")}
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
@@ -137,6 +137,9 @@ export function AboutMe({ ctx, params }: RequestInfo) {
                     </span>
                     <span className="inline-block bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded text-sm mr-2 mb-2">
                       Vue.js
+                    </span>
+                    <span className="inline-block bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded text-sm mr-2 mb-2">
+                      Playwright
                     </span>
                   </div>
                 </div>

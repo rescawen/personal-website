@@ -138,5 +138,7 @@ html {
 @theme {
   --color-off-white: #fcf9f5;
   --color-light-beige: #f0dec4;
+  --color-pure-brown: #6f6258;
   --color-dark-brown: #6a5e54;
+  --color-border-brown: #4e453d;
 }

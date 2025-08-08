@@ -7,7 +7,8 @@ export const Document: React.FC<{ children: React.ReactNode }> = ({
     <head>
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>@redwoodjs/starter-minimal</title>
+      <title>Wenlei Dai</title>
+      <link rel="icon" href="/media/zhugeliang_x_profile.ico"></link>
       <link rel="stylesheet" href={styles} />
       <link rel="modulepreload" href="/src/client.tsx" />
       {/* including this within the head to prevent FOUC */}
