@@ -32,7 +32,12 @@ export default function LanguageSwitcher(currentLang: LanguageSwitcherProps) {
 
   return (
     <>
-      <select value={lang} onChange={handleChange} className="rounded p-1">
+      <select
+        name="language switcher"
+        value={lang}
+        onChange={handleChange}
+        className="rounded px-0.5 font-sans text-sm bg-gray-300 dark:bg-neutral-700 hover:cursor-pointer"
+      >
         <option value="en">English</option>
         <option value="fi">Suomi</option>
       </select>

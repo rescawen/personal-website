@@ -23,7 +23,7 @@ export function Layout({ ctx, params, children }: LayoutProps) {
       {/* <div className="flex justify-end p-4 mr-[23rem]"> */}
       <div className="container mx-auto sm:px-4 py-2">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center gap-3 sm:gap-6 mr-0.5">
+          <div className="flex justify-between items-center gap-3 sm:gap-6 ml-1">
             {/* Icon Row */}
             <div className="flex mt-2">
               {/* Replace these with your actual icon components or <img> tags */}
@@ -68,8 +68,9 @@ export function Layout({ ctx, params, children }: LayoutProps) {
               >
                 {/* LinkedIn SVG */}
                 <svg
-                  width="22.5"
-                  height="22.5"
+                  className="relative -top-0.5"
+                  width="24"
+                  height="24"
                   fill="currentColor"
                   viewBox="0 0 24 24"
                 >
@@ -78,7 +79,7 @@ export function Layout({ ctx, params, children }: LayoutProps) {
               </a>
             </div>
             {/* Switchers */}
-            <div className="flex justify-end gap-2 sm:gap-6 mr-0.5">
+            <div className="flex justify-end gap-2 sm:gap-3 mr-0.5">
               <LanguageSwitcher currentLang={currentLang} />
               <ThemeSwitcher />
             </div>
