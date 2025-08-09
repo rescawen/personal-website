@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 interface NavLink {
   href: string;
@@ -9,72 +9,54 @@ interface NavLink {
 
 interface NavigationBarProps {
   navLinks: NavLink[];
+  currentPath: string;
 }
 
-function getCurrentLabel(navLinks: NavLink[]) {
-  if (typeof window === "undefined") return navLinks[0]?.label || "About Me";
-  const path = window.location.pathname;
-  // Handle both exact matches and language-aware paths
-  const found = navLinks.find((l) => {
-    // Exact match
-    if (l.href === path) return true;
-    // Check if current path matches the pattern (e.g., /en/showcase matches /en/showcase)
-    if (path === l.href) return true;
-    // For root path, check if we're on a language root (e.g., /en should match the "about me" link)
-    const pathSegments = path.split("/").filter(Boolean);
-    const linkSegments = l.href.split("/").filter(Boolean);
-    if (
-      pathSegments.length === 1 &&
-      linkSegments.length === 1 &&
-      pathSegments[0] === linkSegments[0]
-    ) {
-      return true;
-    }
-    return false;
-  });
-  return found ? found.label : navLinks[0]?.label || "About Me";
-}
-
-export default function NavigationBar({ navLinks }: NavigationBarProps) {
+export default function NavigationBar({
+  navLinks,
+  currentPath,
+}: NavigationBarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [currentLabel, setCurrentLabel] = useState(
-    navLinks[0]?.label || "About Me",
-  );
 
-  // Update current label on mount and on popstate
-  useEffect(() => {
-    function updateLabel() {
-      setCurrentLabel(getCurrentLabel(navLinks));
-    }
-    updateLabel();
-    window.addEventListener("popstate", updateLabel);
-    // Also listen for client-side navigation events
-    window.addEventListener("rwsdk:navigate", updateLabel);
-    return () => {
-      window.removeEventListener("popstate", updateLabel);
-      window.removeEventListener("rwsdk:navigate", updateLabel);
-    };
-  }, [navLinks]);
+  function normalizePath(path: string) {
+    if (!path) return "/";
+    if (path.length > 1 && path.endsWith("/")) return path.slice(0, -1);
+    return path;
+  }
+
+  const normalizedCurrentPath = normalizePath(currentPath);
+  const currentLabel =
+    navLinks.find((link) => normalizePath(link.href) === normalizedCurrentPath)
+      ?.label ||
+    navLinks[0]?.label ||
+    "About Me";
 
   return (
     <>
       <nav className="mt-16 flex flex-col items-center w-full">
         {/* Desktop nav */}
         <ul className="hidden md:flex justify-center items-center space-x-16">
-          {navLinks.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="font-semibold text-lg hover:underline underline-offset-4"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-          {/* <LanguageSwitcher currentLang={currentLang} /> */}
+          {navLinks.map((link) => {
+            const isActive = normalizePath(link.href) === normalizedCurrentPath;
+            return (
+              <li key={link.href}>
+                <a
+                  href={link.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={`text-lg hover:underline underline-offset-4 ${
+                    isActive
+                      ? "font-bold text-orange-700 dark:text-amber-600"
+                      : "font-semibold "
+                  }`}
+                >
+                  {link.label}
+                </a>
+              </li>
+            );
+          })}
         </ul>
         {/* Desktop horizontal line */}
-        <div className="relative mt-4 w-[34rem] mx-auto flex justify-center hidden md:flex">
+        <div className="relative mt-4 w-[34rem] mx-auto justify-center hidden md:flex">
           <div className="h-0.5 bg-black dark:bg-light-beige w-full"></div>
           <div className="absolute left-0 top-0 h-6 w-0.5 bg-black dark:bg-light-beige"></div>
           <div className="absolute right-0 top-0 h-6 w-0.5 bg-black dark:bg-light-beige"></div>
@@ -117,17 +99,26 @@ export default function NavigationBar({ navLinks }: NavigationBarProps) {
             {/* Mobile dropdown menu */}
             {menuOpen && (
               <ul className="absolute top-12 left-1/2 -translate-x-1/2 bg-white dark:bg-black shadow-lg rounded-lg py-2 z-50 w-48 border border-gray-200 dark:border-gray-700">
-                {navLinks.map((link) => (
-                  <li key={link.href}>
-                    <a
-                      href={link.href}
-                      className="block px-4 py-2 text-base hover:bg-gray-100 dark:hover:bg-gray-800"
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
+                {navLinks.map((link) => {
+                  const isActive =
+                    normalizePath(link.href) === normalizedCurrentPath;
+                  return (
+                    <li key={link.href}>
+                      <a
+                        href={link.href}
+                        aria-current={isActive ? "page" : undefined}
+                        className={`block px-4 py-2 text-base hover:bg-gray-100 dark:hover:bg-gray-800 ${
+                          isActive
+                            ? "font-bold underline underline-offset-4"
+                            : ""
+                        }`}
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             )}
           </div>
