@@ -188,6 +188,8 @@ export function AboutMe({ ctx, params }: RequestInfo) {
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
                   href="mailto:resca.wen@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors text-center font-medium"
                 >
                   {ctx.translate("aboutme_get_in_touch_email_me")}
