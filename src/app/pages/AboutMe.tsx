@@ -12,7 +12,7 @@ export function AboutMe({ ctx, params }: RequestInfo) {
               <div className="flex flex-col items-center md:flex-row md:justify-center md:items-center gap-8 sm:mb-6 sm:ml-12">
                 <div className="w-32 h-32 rounded-full overflow-hidden flex-shrink-0">
                   <img
-                    src="/media/zhugeliang_aboutme.png"
+                    src="/images/zhugeliang_aboutme.png"
                     alt="Wenlei Dai"
                     className="object-cover w-full h-full rounded-full"
                   />
@@ -195,7 +195,7 @@ export function AboutMe({ ctx, params }: RequestInfo) {
                   {ctx.translate("aboutme_get_in_touch_email_me")}
                 </a>
                 <a
-                  href="/files/Wenlei_Resume_2025.pdf"
+                  href="/documents/Wenlei_Resume_2025.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 px-5 py-3 rounded-lg transition-colors text-center font-medium text-gray-700 dark:text-gray-300"
