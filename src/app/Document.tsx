@@ -8,7 +8,7 @@ export const Document: React.FC<{ children: React.ReactNode }> = ({
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <title>Wenlei Dai</title>
-      <link rel="icon" href="/media/zhugeliang_x_profile.ico"></link>
+      <link rel="icon" href="/media/zhugeliang_x_favicon.ico"></link>
       <link rel="stylesheet" href={styles} />
       <link rel="modulepreload" href="/src/client.tsx" />
       {/* including this within the head to prevent FOUC */}
