@@ -190,7 +190,7 @@ export function AboutMe({ ctx, params }: RequestInfo) {
                   href="mailto:resca.wen@gmail.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg transition-colors text-center font-medium"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-lg transition-colors text-center font-medium"
                 >
                   {ctx.translate("aboutme_get_in_touch_email_me")}
                 </a>
@@ -198,7 +198,7 @@ export function AboutMe({ ctx, params }: RequestInfo) {
                   href="/files/Wenlei_Resume_2025.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 px-6 py-3 rounded-lg transition-colors text-center font-medium text-gray-700 dark:text-gray-300"
+                  className="border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 px-5 py-3 rounded-lg transition-colors text-center font-medium text-gray-700 dark:text-gray-300"
                 >
                   {ctx.translate("aboutme_get_in_touch_download_cv")}
                 </a>
