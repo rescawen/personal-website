@@ -22,6 +22,7 @@ export type AppContext = {
   session: Session | null;
   i18n: i18nType;
   translate: i18nType["t"];
+  language: string;
 };
 
 // Helper functions
@@ -146,6 +147,7 @@ export default defineApp([
     const i18n = await setupI18n(lng);
     ctx.i18n = i18n;
     ctx.translate = i18n.t.bind(i18n);
+    ctx.language = lng; // Store language in context
   },
   render(Document, [
     route("/:lang", AboutMe),

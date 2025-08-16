@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- English Pages -->
+  <url>
+    <loc>https://wenleidai.com/en</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://wenleidai.com/fi"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://wenleidai.com/en"/>
+  </url>
+  
+  <url>
+    <loc>https://wenleidai.com/en/showcase</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://wenleidai.com/fi/showcase"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://wenleidai.com/en/showcase"/>
+  </url>
+  
+  <url>
+    <loc>https://wenleidai.com/en/projects</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://wenleidai.com/fi/projects"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://wenleidai.com/en/projects"/>
+  </url>
+  
+  <url>
+    <loc>https://wenleidai.com/en/esports</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://wenleidai.com/fi/esports"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://wenleidai.com/en/esports"/>
+  </url>
+  
+  <!-- Finnish Pages -->
+  <url>
+    <loc>https://wenleidai.com/fi</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://wenleidai.com/en"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://wenleidai.com/fi"/>
+  </url>
+  
+  <url>
+    <loc>https://wenleidai.com/fi/showcase</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://wenleidai.com/en/showcase"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://wenleidai.com/fi/showcase"/>
+  </url>
+  
+  <url>
+    <loc>https://wenleidai.com/fi/projects</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://wenleidai.com/en/projects"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://wenleidai.com/fi/projects"/>
+  </url>
+  
+  <url>
+    <loc>https://wenleidai.com/fi/esports</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://wenleidai.com/en/esports"/>
+    <xhtml:link rel="alternate" hreflang="fi" href="https://wenleidai.com/fi/esports"/>
+  </url>
+  
+</urlset>
